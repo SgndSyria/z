@@ -18,220 +18,76 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #ff4d4d; /* Red color */
-            background: linear-gradient(120deg, #0e0e0e, #1b1b1b); /* Dark background */
+            color: #ff4d4d;
+            background: linear-gradient(120deg, #0e0e0e, #1b1b1b);
             position: relative;
             overflow: hidden;
         }
 
-        /* Neon glow effect */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 77, 77, 0.1), rgba(255, 0, 0, 0.1)); /* Red glow */
-            animation: moveGradient 15s infinite linear;
-            z-index: -2;
-        }
-
-        /* Glassy effect for container */
         .container {
             backdrop-filter: blur(20px);
             background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 95%;
             width: 100%;
-            box-shadow: 0 0 30px rgba(255, 77, 77, 0.7); /* Red glow */
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.7);
+            text-align: center;
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #ff4d4d; /* Red color */
-            letter-spacing: 3px;
-            text-align: center;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 77, 77, 0.8); /* Red glow */
-        }
-
-        /* Input fields */
-        input, select {
-            width: calc(100% - 24px);
-            padding: 15px;
+            font-size: 2rem;
+            color: #ff4d4d;
             margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #ff4d4d; /* Red border */
-            border-radius: 10px;
-            color: #ff4d4d; /* Red text */
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            outline: none;
-            box-shadow: 0 0 10px rgba(255, 77, 77, 0.5); /* Red glow */
-        }
-
-        input::placeholder {
-            color: #888;
-        }
-
-        input:focus, select:focus {
-            box-shadow: 0 0 15px rgba(255, 77, 77, 0.8); /* Red focus */
-            border: 2px solid #ff4d4d; /* Red border */
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
         }
 
         label {
             color: #fff;
-            margin-bottom: 8px;
             display: block;
-            font-size: 1rem;
-            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: left;
         }
 
-        /* Cool button design */
-        button {
-            width: calc(100% - 24px);
-            padding: 15px;
-            border: none;
-            background: linear-gradient(135deg, #ff4d4d, #ff0000); /* Red gradient */
-            color: #fff;
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #ff4d4d;
             border-radius: 10px;
-            font-size: 1.2rem;
-            text-transform: uppercase;
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff4d4d, #ff0000);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 2px;
-            font-weight: bold;
-            box-shadow: 0 5px 20px rgba(255, 77, 77, 0.5); /* Red shadow */
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.5);
+            margin-top: 10px;
         }
 
         button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 77, 77, 0.8); /* Hover red shadow */
-        }
-
-        .flash-button {
-            margin-top: 15px;
-        }
-
-        /* Form animations */
-        form {
-            animation: fadeIn 1.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Wallet Section */
-        .wallet-section {
-            color: #fff;
-            font-size: 1.1rem;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .limit-info {
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        /* Activation Message */
-        .activation-message {
-            color: #ff4d4d; /* Red color */
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        /* Loading spinner */
-        .loading-box {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .loading-animation {
-            width: 50px;
-            height: 50px;
-            border: 6px solid rgba(255, 255, 255, 0.1);
-            border-top: 6px solid #ff4d4d; /* Red spinner */
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Status and result messages */
-        .status-message, .result-message {
-            font-size: 1.1rem;
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .status-message {
-            color: #ff4d4d; /* Red color */
-        }
-
-        .result-message {
-            color: #ff4d4d; /* Red color */
-        }
-
-        /* Transaction History */
-        .transaction-history {
-            margin-top: 30px;
-            color: #fff;
-            font-size: 0.9rem;
-        }
-
-        /* Transaction list */
-        .transaction-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .transaction-item {
-            background: rgba(255, 77, 77, 0.1); /* Light red background */
-            border-radius: 10px;
-            padding: 10px;
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
+            transform: scale(1.05);
         }
 
         .hidden {
             display: none;
         }
 
-        /* Buy Activation Button */
-        .buy-activation-button {
-            background: linear-gradient(135deg, #ff4d4d, #ff0000); /* Red gradient */
-        }
-
-        /* Floating Button */
         .floating-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #25D366; /* WhatsApp Green */
+            background-color: #25D366;
             color: white;
             font-size: 24px;
             width: 50px;
@@ -247,19 +103,28 @@
 
         .floating-button:hover {
             background-color: #128C7E;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
             transform: scale(1.1);
         }
 
-        .floating-button span {
-            font-size: 30px;
-        }
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
 
+            input, select, button {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>⛓️Flashing ⛓️⛓️Tool⛓️</h1>
+        <h1>⛓️Flashing ⛓️Tool⛓️</h1>
 
         <!-- Buy Activation Code Button (Outside) -->
         <button id="buyActivationButton" class="buy-activation-button" onclick="window.location.href='https://sgndsyria.github.io/n/';">Buy Activation Code</button>
