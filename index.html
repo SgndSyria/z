@@ -1,0 +1,439 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashing Tool</title>
+    <style>
+        /* General Body Style */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ff4d4d; /* Red color */
+            background: linear-gradient(120deg, #0e0e0e, #1b1b1b); /* Dark background */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Neon glow effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 77, 77, 0.1), rgba(255, 0, 0, 0.1)); /* Red glow */
+            animation: moveGradient 15s infinite linear;
+            z-index: -2;
+        }
+
+        /* Glassy effect for container */
+        .container {
+            backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.7); /* Red glow */
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff4d4d; /* Red color */
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 77, 77, 0.8); /* Red glow */
+        }
+
+        /* Input fields */
+        input, select {
+            width: calc(100% - 24px);
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff4d4d; /* Red border */
+            border-radius: 10px;
+            color: #ff4d4d; /* Red text */
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 77, 77, 0.5); /* Red glow */
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        input:focus, select:focus {
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.8); /* Red focus */
+            border: 2px solid #ff4d4d; /* Red border */
+        }
+
+        label {
+            color: #fff;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Cool button design */
+        button {
+            width: calc(100% - 24px);
+            padding: 15px;
+            border: none;
+            background: linear-gradient(135deg, #ff4d4d, #ff0000); /* Red gradient */
+            color: #fff;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(255, 77, 77, 0.5); /* Red shadow */
+        }
+
+        button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 77, 77, 0.8); /* Hover red shadow */
+        }
+
+        .flash-button {
+            margin-top: 15px;
+        }
+
+        /* Form animations */
+        form {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Wallet Section */
+        .wallet-section {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .limit-info {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Activation Message */
+        .activation-message {
+            color: #ff4d4d; /* Red color */
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Loading spinner */
+        .loading-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .loading-animation {
+            width: 50px;
+            height: 50px;
+            border: 6px solid rgba(255, 255, 255, 0.1);
+            border-top: 6px solid #ff4d4d; /* Red spinner */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Status and result messages */
+        .status-message, .result-message {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .status-message {
+            color: #ff4d4d; /* Red color */
+        }
+
+        .result-message {
+            color: #ff4d4d; /* Red color */
+        }
+
+        /* Transaction History */
+        .transaction-history {
+            margin-top: 30px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        /* Transaction list */
+        .transaction-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .transaction-item {
+            background: rgba(255, 77, 77, 0.1); /* Light red background */
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Buy Activation Button */
+        .buy-activation-button {
+            background: linear-gradient(135deg, #ff4d4d, #ff0000); /* Red gradient */
+        }
+
+        /* Floating Button */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .floating-button:hover {
+            background-color: #128C7E;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+            transform: scale(1.1);
+        }
+
+        .floating-button span {
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⛓️Flashing ⛓️⛓️Tool⛓️</h1>
+
+        <!-- Buy Activation Code Button (Outside) -->
+        <button id="buyActivationButton" class="buy-activation-button" onclick="window.location.href='https://sgndsyria.github.io/n/';">Buy Activation Code</button>
+
+        <!-- Activation Code Section -->
+        <div id="activationSection" class="activation-section">
+            <label for="activationCode">Activation Code</label>
+            <input type="text" id="activationCode" placeholder="Enter Activation Code">
+            <button id="activateButton">Activate</button>
+
+            <div id="activationMessage" class="activation-message"></div>
+        </div>
+
+        <!-- Floating Button -->
+        <a href="https://wa.me/2250718620723" target="_blank" class="floating-button">
+            <span>💬</span>
+        </a>
+
+        <!-- Wallet Balance Display (Hidden Initially) -->
+        <div id="walletSection" class="wallet-section hidden">
+            <p>Wallet Balance: <span id="walletBalance">00 USDT</span></p>
+            <p class="limit-info">Daily Limit: <span id="dailyLimit">00 USDT</span> | Validity: <span id="validity">00 Days</span></p>
+        </div>
+
+        <!-- Flash Form (Hidden Initially) -->
+        <form id="flashForm" class="hidden">
+            <div class="form-group">
+                <label for="recipient">Recipient Address</label>
+                <input type="text" id="recipient" name="recipient" placeholder="Enter wallet address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="network">USDT Network</label>
+                <select id="network" name="network" required>
+                    <option value="TRC20">USDT | TRC20</option>
+                    <option value="BEP20">USDT | BEP20</option>
+                    <option value="ERC20">USDT | ERC20</option>
+                     <option value="ERC20">DOGE | BEP20</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount to Flash (USDT)</label>
+                <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+            </div>
+
+            <button type="submit" class="flash-button">Flash</button>
+        </form>
+
+        <!-- Loading Animation -->
+        <div id="loadingBox" class="loading-box hidden">
+            <div class="loading-animation"></div>
+            <p class="status-message">Processing...</p>
+        </div>
+
+        <!-- Status and Result Messages -->
+        <div id="statusMessage" class="status-message"></div>
+        <div id="resultMessage" class="result-message"></div>
+
+        <!-- Transaction History (Hidden Initially) -->
+        <div id="transactionHistory" class="transaction-history hidden">
+            <h2>Transaction History</h2>
+            <ul id="transactionList" class="transaction-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functionality
+        const activationCodeInput = document.getElementById('activationCode');
+        const activateButton = document.getElementById('activateButton');
+        const walletSection = document.getElementById('walletSection');
+        const flashForm = document.getElementById('flashForm');
+        const loadingBox = document.getElementById('loadingBox');
+        const statusMessage = document.getElementById('statusMessage');
+        const resultMessage = document.getElementById('resultMessage');
+        const transactionHistory = document.getElementById('transactionHistory');
+        const transactionList = document.getElementById('transactionList');
+        const buyActivationButton = document.getElementById('buyActivationButton');
+        const activationMessage = document.getElementById('activationMessage');
+        const activationSection = document.getElementById('activationSection');
+
+        // Activation codes and their properties
+        const activationCodes = {
+            "917917": {
+                walletBalance: 10000,
+                dailyLimit: 10000,
+                validity: "60 Days"
+            },
+            "910910": {
+                walletBalance: 5,
+                dailyLimit: 5,
+                validity: "1 Days"
+            }
+        };
+
+        let currentWalletBalance = 0;
+
+        activateButton.addEventListener('click', function() {
+            const activationCode = activationCodeInput.value;
+
+            if (activationCode === '') {
+                activationMessage.innerText = 'Please enter an activation code.';
+                return;
+            }
+
+            // Show loading animation
+            loadingBox.classList.remove('hidden');
+
+            // Simulate activation process
+            setTimeout(() => {
+                // Hide loading animation
+                loadingBox.classList.add('hidden');
+
+                // Check if the activation code is valid
+                if (activationCodes[activationCode]) {
+                    const { walletBalance, dailyLimit, validity } = activationCodes[activationCode];
+                    currentWalletBalance = walletBalance; // Set current wallet balance
+                    walletSection.classList.remove('hidden');
+                    flashForm.classList.remove('hidden');
+                    activationSection.classList.add('hidden'); // Hide activation section
+                    activationMessage.innerText = 'Activation successful!';
+
+                    // Update wallet balance, daily limit, and validity
+                    document.getElementById('walletBalance').innerText = `${walletBalance} USDT`;
+                    document.getElementById('dailyLimit').innerText = `${dailyLimit} USDT`;
+                    document.getElementById('validity').innerText = validity;
+                } else {
+                    activationMessage.innerText = 'Invalid activation code. Please try again.';
+                }
+            }, 2000); // Simulate network delay
+        });
+
+        // Handle Flash Form submission
+        flashForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const recipient = document.getElementById('recipient').value;
+            const amount = parseFloat(document.getElementById('amount').value); // Parse amount as float
+            const network = document.getElementById('network').value;
+
+            // Show loading animation
+            loadingBox.classList.remove('hidden');
+            statusMessage.innerText = '';
+            resultMessage.innerText = '';
+
+            // Check for insufficient balance
+            if (amount > currentWalletBalance) {
+                loadingBox.classList.add('hidden'); // Hide loading animation
+                resultMessage.innerText = 'Insufficient balance. Please enter a valid amount.';
+                return;
+            }
+
+            // Simulate flashing process
+            setTimeout(() => {
+                // Hide loading animation
+                loadingBox.classList.add('hidden');
+
+                // Simulate successful flash
+                const flashSuccess = true; // Replace with actual flash success condition
+
+                if (flashSuccess) {
+                    resultMessage.innerText = `Successfully flashed ${amount} USDT to ${recipient} via ${network}.`;
+
+                    // Add to transaction history
+                    const transactionItem = document.createElement('li');
+                    transactionItem.className = 'transaction-item';
+                    transactionItem.innerText = `${amount} USDT to ${recipient} via ${network}`;
+                    transactionList.appendChild(transactionItem);
+                    transactionHistory.classList.remove('hidden');
+                } else {
+                    resultMessage.innerText = 'Flash failed. Please try again.';
+                }
+            }, 2000); // Simulate network delay
+        });
+    </script>
+</body>
+</html>
